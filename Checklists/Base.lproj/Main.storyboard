@@ -48,7 +48,7 @@
                     <navigationItem key="navigationItem" title="Checklists" id="Xg9-9N-RXH">
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="Oac-HY-AdJ">
                             <connections>
-                                <segue destination="k3c-ne-dVO" kind="show" id="DR5-dp-toJ"/>
+                                <segue destination="k3c-ne-dVO" kind="show" identifier="AddItem" id="DR5-dp-toJ"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
