@@ -14,18 +14,30 @@ class ChecklistViewController: UITableViewController, AddItemViewControllerDeleg
     
     // MARK:- Add Item ViewController Delegates
     func addItemViewControllerDidCancel(
-        _ controller: AddItemViewController) {
+        _ controller: ItemDetailViewController) {
         navigationController?.popViewController(animated:true)
     }
 
     func addItemViewController(
-        _ controller: AddItemViewController,
+        _ controller: ItemDetailViewController,
         didFinishAdding item: ChecklistItem) {
         let newRowIndex = items.count
         items.append(item)
         let indexPath = IndexPath(row: newRowIndex, section: 0)
         let indexPaths = [indexPath]
         tableView.insertRows(at: indexPaths, with: .automatic)
+        navigationController?.popViewController(animated:true)
+    }
+    
+    func addItemViewController(
+        _ controller: ItemDetailViewController,
+        didFinishEditing item: ChecklistItem) {
+        if let index = items.index(of: item) {
+            let indexPath = IndexPath(row: index, section: 0)
+            if let cell = tableView.cellForRow(at: indexPath) {
+                configureText(for: cell, with: item)
+            }
+        }
         navigationController?.popViewController(animated:true)
     }
     
@@ -92,10 +104,11 @@ class ChecklistViewController: UITableViewController, AddItemViewControllerDeleg
     //new func
     func configureCheckmark(for cell: UITableViewCell,
                             with item: ChecklistItem) {
+        let label = cell.viewWithTag(1001) as! UILabel
         if item.checked {
-            cell.accessoryType = .checkmark
+            label.text = "√"
         } else {
-            cell.accessoryType = .none
+            label.text = ""
         }
     }
     
@@ -120,12 +133,9 @@ class ChecklistViewController: UITableViewController, AddItemViewControllerDeleg
     // MARK:- Navigation
     override func prepare(for segue: UIStoryboardSegue,
                                             sender: Any?) {
-        // 1
         if segue.identifier == "AddItem" {
-            // 2
             let controller = segue.destination
-                                    as! AddItemViewController
-            //3
+                                    as! ItemDetailViewController
             controller.delegate = self
         }
     }
