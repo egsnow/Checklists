@@ -11,6 +11,8 @@ import UIKit
 class ChecklistViewController: UITableViewController, ItemDetailViewControllerDelegate {
     
     var items = [ChecklistItem]()
+    var checklist: Checklist!
+    
     
     // MARK:- Add Item ViewController Delegates
     func itemDetailViewControllerDidCancel(
@@ -44,8 +46,9 @@ class ChecklistViewController: UITableViewController, ItemDetailViewControllerDe
         loadChecklistItems()
         print("Documents folder is \(documentsDirectory())")
         print("Data file path is \(dataFilePath())")
-        
-        navigationController?.navigationBar.prefersLargeTitles = true
+        title = checklist.name
+
+        navigationItem.largeTitleDisplayMode = .never
     }
 
     // MARK:- Table View Data Source
