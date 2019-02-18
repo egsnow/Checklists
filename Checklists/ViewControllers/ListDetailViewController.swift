@@ -80,14 +80,12 @@ class ListDetailViewController: UITableViewController, UITextFieldDelegate, Icon
         return true
     }
     
-    // MARK:- Icon Picker View Controller Delegate
     func iconPicker(_ picker: IconPickerViewController, didPick iconName: String) {
         self.iconName = iconName
         iconImage.imageView?.image = UIImage(named: iconName)
         navigationController?.popViewController(animated: true)
     }
     
-    // MARK:- Navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "PickIcon" {
             let controller = segue.destination as! IconPickerViewController
